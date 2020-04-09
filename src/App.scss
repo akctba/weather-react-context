@@ -139,12 +139,32 @@ main {
   text-shadow: 3px 6px rgba(50, 50, 70, 0.5);
 }
 
-.location-box .weather {
+.location-box .feels {
+  margin: 5px auto;
+  text-align: center;
+  
+  color: #fff;
+  font-size: 20px;
+  font-weight: 400;
+
+  text-shadow: 3px 3px rgba(50, 50, 70, 0.5);
+}
+
+.weather-list {
+  display: flex;
+  margin: 0 auto;
+  width: fit-content;
+  align-items: center;
+}
+
+.location-box .weather-list .weather {
+  margin: 0;
+  width: fit-content;
   color: #FFF;
   font-size: 48px;
   font-weight: 700;
   text-shadow: 3px 3px rgba(50, 50, 70, 0.5);
-  text-align: center;
+
 }
 
 /* -- Language selector Box -- */
