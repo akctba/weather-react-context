@@ -20,7 +20,7 @@ class Weather extends React.Component {
                         <div className="app">
                             <main>
                                 <Searchbar />
-                                <LanguageFunction />  <span>Selected language {data.language}</span>
+                                <LanguageFunction /> ({data.language})
                                  {(typeof weather.main != "undefined") ? ( 
                                     <div className="location-box">
                                         <div className="location">{weather.name}, {weather.sys.country}</div>
@@ -33,7 +33,7 @@ class Weather extends React.Component {
                                             <img alt={weather.weather[0].description}
                                                 src={"http://openweathermap.org/img/wn/"+weather.weather[0].icon+"@2x.png"} />
                                             <p className="weather">
-                                                {weather.weather[0].main}
+                                                {weather.weather[0].description}
                                             </p>
                                         </div>
  
