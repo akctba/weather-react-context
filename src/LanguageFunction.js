@@ -5,7 +5,7 @@ const onChange = (dispatch, e) => {
     dispatch({ type: "CHANGE_LANGUAGE", payload: e.target.value });
 }
 
-function LanguageFunction(props) {
+function LanguageFunction() {
 
     const langs = [
         {freq: false, code:"af",	lang:"Afrikaans"},
