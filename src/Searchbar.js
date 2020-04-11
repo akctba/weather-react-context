@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
 
-import { Consumer } from "./Context";
+import { WeatherConsumer } from "./weatherContext";
 
 class Searchbar extends Component {
 
@@ -9,7 +9,7 @@ class Searchbar extends Component {
         location: ""
     }
 
-    static contextType = Consumer
+    static contextType = WeatherConsumer;
 
     search = (dispatch, e) => {
         
@@ -30,7 +30,7 @@ class Searchbar extends Component {
     render() { 
 
         return(
-            <Consumer>
+            <WeatherConsumer>
                 {value => {
                     const { dispatch } = value;
                     return (
@@ -41,12 +41,12 @@ class Searchbar extends Component {
                             placeholder = "Search..."
                             onChange={this.onChange}
                             value={this.state.location}
-                            onKeyPress={this.search.bind(dispatch, this)}
+                            onKeyPress={this.search.bind(this, dispatch)}
                             />
                         </div>
                     )
                 }}
-            </Consumer>
+            </WeatherConsumer>
         );
     }
 }

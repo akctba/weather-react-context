@@ -1,6 +1,5 @@
-import React from "react";
-
-const Context = React.createContext();
+import React, {Component} from "react";
+const { Provider, Consumer } = React.createContext();
 
 const api = {
     key: "720b1a41660c87e3beb3873ed2143b01",
@@ -13,6 +12,7 @@ const reducer = (state, action) => {
         return {
           ...state,
           language: action.payload
+          
         };
         case "FIND_BY_NAME":
         return {
@@ -29,12 +29,14 @@ const loadWeather = (place) => {
     fetch(`${api.base}weather?q=${place}&lang=${this.context.language}&units=metric&APPID=${api.key}`)
     .then(res => res.json())
     .then(result => {
-        console.log(result);
-        return result;
+      console.log(result);
+      return result;
+    }).catch(error => {
+      console.error(error);
     });
 }
 
-export class Provider extends React.Component {
+class WeatherProvider extends Component {
     state = {
         language: "en",
         location: "",
@@ -57,6 +59,8 @@ export class Provider extends React.Component {
                         console.log(result);
                         //return result;
                         this.setState({weather: result});
+                    }).catch(error => {
+                      //TODO: show error message
                     });
 
             }, error => {console.error(error)},
@@ -70,11 +74,11 @@ export class Provider extends React.Component {
         return (
             //Return the Provider with the data that we wanna share between components. 
             //Everything that we have inside Value, will be visible for all components.
-            <Context.Provider value={this.state}>
+            <Provider value={this.state}>
               {this.props.children}
-            </Context.Provider>
+            </Provider>
           );
     }
 }
 
-export const Consumer = Context.Consumer; 
+export { WeatherProvider, Consumer as WeatherConsumer };

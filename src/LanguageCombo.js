@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
 
-import { Consumer } from './Context';
+import { WeatherConsumer } from './weatherContext';
 
 class LanguageCombo extends Component {
 
@@ -22,7 +22,7 @@ class LanguageCombo extends Component {
         dispatch({ type: "CHANGE_LANGUAGE", payload: e.target.value });
     }
 
-    static contextType = Consumer
+    static contextType = WeatherConsumer
 
     render() {
         const langs = [
@@ -74,7 +74,7 @@ class LanguageCombo extends Component {
         ];
 
         return (
-            <Consumer>
+            <WeatherConsumer>
                 {value => {
                     const { dispatch } = value;
                     return (
@@ -93,7 +93,7 @@ class LanguageCombo extends Component {
                         </div>
                     );
                 }}
-            </Consumer>
+            </WeatherConsumer>
         
         );
     }

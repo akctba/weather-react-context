@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { Consumer } from "./Context";
+import { WeatherConsumer } from "./weatherContext";
 import {dateBuilder} from "./Util";
 
-import LanguageCombo from "./LanguageCombo";
+//import LanguageCombo from "./LanguageCombo";
+import LanguageFunction from './LanguageFunction';
 import Searchbar from './Searchbar';
 
 class Weather extends React.Component {
@@ -11,7 +12,7 @@ class Weather extends React.Component {
 
     render() {
         return(
-            <Consumer>
+            <WeatherConsumer>
                 {data => {
                     const { weather } = data;
 
@@ -19,8 +20,7 @@ class Weather extends React.Component {
                         <div className="app">
                             <main>
                                 <Searchbar />
-                                <LanguageCombo />
-
+                                <LanguageFunction />  <span>Selected language {data.language}</span>
                                  {(typeof weather.main != "undefined") ? ( 
                                     <div className="location-box">
                                         <div className="location">{weather.name}, {weather.sys.country}</div>
@@ -36,14 +36,14 @@ class Weather extends React.Component {
                                                 {weather.weather[0].main}
                                             </p>
                                         </div>
-
+ 
                                     </div>
                                  ) : ('Wait...')}
                             </main>
                         </div>
                     );
                 }}
-            </Consumer>
+            </WeatherConsumer>
         );
     }
 }

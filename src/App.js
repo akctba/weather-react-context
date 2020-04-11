@@ -3,7 +3,7 @@ import './App.scss';
 
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
-import { Provider } from "./Context"; // Import Provider from Context.js
+import { WeatherProvider } from "./weatherContext"; // Import Provider from Context.js
 
 //Import components
 import Header from "./layout/Header";
@@ -12,7 +12,7 @@ import About from './pages/About';
 
 function App() {
   return (
-    <Provider>
+    <WeatherProvider>
       <Router>
         <Header />
         
@@ -22,7 +22,7 @@ function App() {
         </Switch>
 
       </Router>
-    </Provider>
+    </WeatherProvider>
   );
 }
 
