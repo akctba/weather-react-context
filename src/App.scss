@@ -70,28 +70,43 @@ main {
 .search-box {
   width: 100%;
   margin: 0 0 6px;
-}
-
-.search-box .search-bar {
-  display: block;
-  width: 100%;
-  padding: 15px;
-
-  /* transparency */
-  appearance: none;
-  background: none;
-  border: none;
-  outline: none;
 
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 16px;
-
   box-shadow: 0px 5px rgba(0, 0, 0, 0.2);
 
-  color: #313131;
-  font-size: 20px;
+  display: flex;
+  align-items: center;
 
-  transition: ease;
+  .search-bar {
+    display: block;
+    width: 100%;
+    padding: 15px;
+
+    /* transparency */
+    appearance: none;
+    background: none;
+    border: none;
+    outline: none;
+
+    border-radius: 16px;
+
+    color: #313131;
+    font-size: 20px;
+
+    transition: ease;
+  }
+
+  .gps {
+    height: 40px;
+    width: 40px;
+
+    background: none;
+    border: none;
+    font-size: 25px;
+    color: #414141;
+  }
+
 }
 
 .search-box .search-bar:focus {
@@ -171,6 +186,7 @@ main {
 
 .lang-box label {
   color: rgba(255, 255, 255, 0.5);
+  font-size: small;
 }
 
 .lang-box select {

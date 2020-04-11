@@ -43,6 +43,7 @@ class Searchbar extends Component {
                             value={this.state.location}
                             onKeyPress={this.search.bind(this, dispatch)}
                             />
+                            <button type="button" className="gps">&#8982;</button>
                         </div>
                     )
                 }}
