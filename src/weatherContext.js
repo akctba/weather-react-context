@@ -33,7 +33,7 @@ const loadWeather = (place) => {
       return result;
     }).catch(error => {
       console.error(error);
-    });
+    })
 }
 
 class WeatherProvider extends Component {
@@ -53,7 +53,10 @@ class WeatherProvider extends Component {
                 let lat = position.coords.latitude;
                 let lon = position.coords.longitude;
 
-                fetch(`${api.base}weather?lat=${lat}&lon=${lon}&units=metric&APPID=${api.key}`)
+                let endpoint = `${api.base}weather?lat=${lat}&lon=${lon}&lang=${this.state.language}&units=metric&APPID=${api.key}`;
+                console.log(endpoint);
+
+                fetch(endpoint)
                     .then(res => res.json())
                     .then(result => {
                         console.log(result);
