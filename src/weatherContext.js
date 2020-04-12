@@ -12,29 +12,69 @@ const reducer = (state, action) => {
         return {
           ...state,
           language: action.payload
-          
         };
-        case "FIND_BY_NAME":
+      case "SET_WEATHER":
         return {
           ...state,
-          location: action.payload,
-          weather: loadWeather(action.payload)
+          weather: action.payload
         };
+      case "CLEAR_WEATHER":
+        return {
+          ...state,
+          weather: {}
+        };
+        // case "FIND_BY_NAME":
+        // return {
+        //   ...state,
+        //   location: action.payload,
+        //   weather: loadWeather(action.payload, state.language) //nao funciona
+        // };
+        // case "FIND_BY_LOCATION":
+        // return {
+        //   ...state,
+        //   location: '',
+        //   weather: loadWeatherLocation(state.language) //nao funciona
+        // };
       default:
         return state;
     }
   };
 
-const loadWeather = (place) => {
-    fetch(`${api.base}weather?q=${place}&lang=${this.context.language}&units=metric&APPID=${api.key}`)
-    .then(res => res.json())
-    .then(result => {
-      console.log(result);
-      return result;
-    }).catch(error => {
-      console.error(error);
-    })
-}
+// const loadWeather = (place, lang) => {
+//     fetch(`${api.base}weather?q=${place}&lang=${lang}&units=metric&APPID=${api.key}`)
+//     .then(res => res.json())
+//     .then(result => {
+//       console.warn(result);
+//       return result;
+//     }).catch(error => {
+//       console.error(error);
+//     })
+// }
+
+// const loadWeatherLocation = () => {
+//   if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(position => {
+//         let lat = position.coords.latitude;
+//         let lon = position.coords.longitude;
+
+//         //let endpoint = `${api.base}weather?lat=${lat}&lon=${lon}&lang=${this.state.language}&units=metric&APPID=${api.key}`;
+//         let endpoint = `${api.base}weather?lat=${lat}&lon=${lon}&lang=en&units=metric&APPID=${api.key}`;
+
+//         fetch(endpoint)
+//             .then(res => res.json())
+//             .then(result => {
+//                 console.log(result);
+//                 return result;
+//             }).catch(error => {
+//               //TODO: show error message
+//             });
+
+//     }, error => {console.error(error)},
+//     {enableHighAccuracy: true, timeout: 5000, maximumAge: 5000});
+//   } else {
+//     console.log("Geolocation is not supported by this browser.");
+//   }
+// }
 
 class WeatherProvider extends Component {
     state = {
@@ -46,31 +86,21 @@ class WeatherProvider extends Component {
         }
     }
 
+    // componentDidMount() {
+    //   //reducer(this.state, {type: "FIND_BY_NAME", payload: "Vancouver"});
+    //   loadWeather('vancouver', this.state.language, this.setState);
+    // }
+
     componentDidMount() {
-        //get location and call API by Lat and Lon
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(position => {
-                let lat = position.coords.latitude;
-                let lon = position.coords.longitude;
-
-                let endpoint = `${api.base}weather?lat=${lat}&lon=${lon}&lang=${this.state.language}&units=metric&APPID=${api.key}`;
-                console.log(endpoint);
-
-                fetch(endpoint)
-                    .then(res => res.json())
-                    .then(result => {
-                        console.log(result);
-                        //return result;
-                        this.setState({weather: result});
-                    }).catch(error => {
-                      //TODO: show error message
-                    });
-
-            }, error => {console.error(error)},
-            {enableHighAccuracy: true, timeout: 5000, maximumAge: 5000});
-          } else {
-            console.log("Geolocation is not supported by this browser.");
-          }
+      fetch(`${api.base}weather?q=vancouver&lang=${this.state.language}&units=metric&APPID=${api.key}`)
+      .then(res => res.json())
+      .then(result => {
+        //console.warn(result);
+        //return result;
+        this.setState({weather: result});
+      }).catch(error => {
+        console.error(error);
+      })
     }
 
     render() {
