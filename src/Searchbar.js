@@ -47,7 +47,7 @@ class Searchbar extends Component {
         this.setState({location: ''});
         dispatch({ type: "CLEAR_WEATHER", payload: null });
 
-        console.log(this.context);
+        //console.log(this.context);
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
