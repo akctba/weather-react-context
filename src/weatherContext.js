@@ -11,17 +11,25 @@ const reducer = (state, action) => {
       case "CHANGE_LANGUAGE":
         return {
           ...state,
-          language: action.payload
+          language: action.payload,
+          message: ""
         };
       case "SET_WEATHER":
         return {
           ...state,
-          weather: action.payload
+          weather: action.payload,
+          message: ""
         };
       case "CLEAR_WEATHER":
         return {
           ...state,
           weather: {}
+        };
+      case "SHOW_MESSAGE":
+        return {
+          ...state,
+          weather: {},
+          message: action.payload
         };
         // case "FIND_BY_NAME":
         // return {
