@@ -58,7 +58,7 @@ class Weather extends React.Component {
                                         </div>
  
                                     </div>
-                                 ) : ('Wait...')}
+                                 ) : ('')}
                             </main>
                         </div>
                     );

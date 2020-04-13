@@ -26,13 +26,24 @@ class Searchbar extends Component {
                 dispatch({ type: "CLEAR_WEATHER", payload: null });
 
                 fetch(`${api.base}weather?q=${this.state.location}&lang=${this.context.language}&units=metric&APPID=${api.key}`)
-                .then(res => res.json())
+                .then(response => {
+                    if (!response.ok) {
+                        console.warn("Response not ok");
+                        dispatch({type: "SHOW_MESSAGE", payload: "Data doesn't found."});
+                        //throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                  })
                 .then(result => {
-                  //console.warn(result);
-                  //return result;
-                  dispatch({ type: "SET_WEATHER", payload: result });
+                  //dispatch({ type: "SET_WEATHER", payload: result });
+                    if(typeof result == "undefined" || typeof result.main == "undefined" || result.cod === "404") {
+                        dispatch({type: "SHOW_MESSAGE", payload: "No data to that location. " + (result.cod === "404" ? result.message : "") });
+                    } else {
+                        dispatch({ type: "SET_WEATHER", payload: result });
+                    }
                 }).catch(error => {
-                  console.error(error);
+                    console.warn("Prime errorrrrrrr Response not ok");
+                    dispatch({type: "SHOW_MESSAGE", payload: error});
                 })
             }
         }
@@ -58,14 +69,26 @@ class Searchbar extends Component {
                 let endpoint = `${api.base}weather?lat=${lat}&lon=${lon}&lang=${this.context.language}&units=metric&APPID=${api.key}`;
         
                 fetch(endpoint)
-                    .then(res => res.json())
+                    .then(response => {
+                        if (!response.ok) {
+                            console.warn("Response not ok");
+                            dispatch({type: "SHOW_MESSAGE", payload: "Data doesn't found."});
+                        }
+                        return response.json();
+                      })
                     .then(result => {
                         //console.log(result);
                         //return result;
-                        dispatch({ type: "SET_WEATHER", payload: result });
+                        if(typeof result == "undefined" || typeof result.main == "undefined" || result.cod === "404") {
+                            dispatch({type: "SHOW_MESSAGE", payload: "No data to that location." + (result.cod === "404" ? result.message : "") });
+                        } else {
+                            dispatch({ type: "SET_WEATHER", payload: result });
+                        }
 
                     }).catch(error => {
                       //TODO: show error message
+                      console.warn("Catch errorrrrrrr Response not ok");
+                      dispatch({type: "SHOW_MESSAGE", payload: error});
                     });
         
             }, error => {console.error(error)},
@@ -92,8 +115,9 @@ class Searchbar extends Component {
         return(
             <WeatherConsumer>
                 {value => {
-                    const { dispatch } = value;
+                    const { dispatch, message } = value;
                     return (
+                        <>
                         <div className = "search-box" >
                             <input type = "text"
                             name="location" id="location"
@@ -105,6 +129,10 @@ class Searchbar extends Component {
                             />
                             <button type="button" className="gps" onClick={this.findByLocation.bind(this, dispatch)}>&#8982;</button>
                         </div>
+                        <div className={(message?"show-":"no-")+"message"}>
+                            Message: {message}
+                        </div>
+                        </>
                     )
                 }}
             </WeatherConsumer>
