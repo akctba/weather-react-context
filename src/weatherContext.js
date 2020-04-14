@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 const { Provider, Consumer } = React.createContext();
 
-const api = {
-    key: "720b1a41660c87e3beb3873ed2143b01",
-    base: "https://api.openweathermap.org/data/2.5/"
-}
+// const api = {
+//     key: "720b1a41660c87e3beb3873ed2143b01",
+//     base: "https://api.openweathermap.org/data/2.5/"
+// }
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -94,13 +94,8 @@ class WeatherProvider extends Component {
         }
     }
 
-    // componentDidMount() {
-    //   //reducer(this.state, {type: "FIND_BY_NAME", payload: "Vancouver"});
-    //   loadWeather('vancouver', this.state.language, this.setState);
-    // }
-
     componentDidMount() {
-      fetch(`${api.base}weather?q=vancouver&lang=${this.state.language}&units=metric&APPID=${api.key}`)
+      fetch(`${process.env.REACT_APP_BASE}weather?q=vancouver&lang=${this.state.language}&units=metric&APPID=${process.env.REACT_APP_KEY}`)
       .then(res => res.json())
       .then(result => {
         //console.warn(result);

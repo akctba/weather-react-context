@@ -3,10 +3,10 @@ import './index.css';
 
 import { WeatherConsumer } from "./weatherContext";
 
-const api = {
-    key: "720b1a41660c87e3beb3873ed2143b01",
-    base: "https://api.openweathermap.org/data/2.5/"
-}
+// const api = {
+//     key: "720b1a41660c87e3beb3873ed2143b01",
+//     base: "https://api.openweathermap.org/data/2.5/"
+// }
 
 class Searchbar extends Component {
 
@@ -25,7 +25,8 @@ class Searchbar extends Component {
 
                 dispatch({ type: "CLEAR_WEATHER", payload: null });
 
-                fetch(`${api.base}weather?q=${this.state.location}&lang=${this.context.language}&units=metric&APPID=${api.key}`)
+                //fetch(`${api.base}weather?q=${this.state.location}&lang=${this.context.language}&units=metric&APPID=${api.key}`)
+                fetch(`${process.env.base}weather?q=${this.state.location}&lang=${this.context.language}&units=metric&APPID=${process.env.key}`)
                 .then(response => {
                     if (!response.ok) {
                         console.warn("Response not ok");
@@ -66,7 +67,7 @@ class Searchbar extends Component {
                 let lon = position.coords.longitude;
         
                 //let endpoint = `${api.base}weather?lat=${lat}&lon=${lon}&lang=${this.context.language}&units=metric&APPID=${api.key}`;
-                let endpoint = `${api.base}weather?lat=${lat}&lon=${lon}&lang=${this.context.language}&units=metric&APPID=${api.key}`;
+                let endpoint = `${process.env.REACT_APP_BASE}weather?lat=${lat}&lon=${lon}&lang=${this.context.language}&units=metric&APPID=${process.env.REACT_APP_KEY}`;
         
                 fetch(endpoint)
                     .then(response => {
@@ -119,6 +120,7 @@ class Searchbar extends Component {
                     return (
                         <>
                         <div className = "search-box" >
+                            <textarea>{process.env.REACT_APP_BASE}</textarea>
                             <input type = "text"
                             name="location" id="location"
                             className = "search-bar"
