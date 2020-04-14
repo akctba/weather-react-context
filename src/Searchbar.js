@@ -120,7 +120,6 @@ class Searchbar extends Component {
                     return (
                         <>
                         <div className = "search-box" >
-                            <textarea>{process.env.REACT_APP_BASE}</textarea>
                             <input type = "text"
                             name="location" id="location"
                             className = "search-bar"
