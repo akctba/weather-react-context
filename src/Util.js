@@ -16,6 +16,11 @@ export function dateBuilder (d) {
 // -----------------
 
 export function parseTime(timestamp, timezone) {
+
+    if(isNaN(timestamp) || isNaN(timezone)){
+        console.log(`Is not a number: timestamp [${timestamp}] timezone [${timezone}]`)
+        return '';
+    } 
     
     var adjTimestamp = timestamp * 1000 + timezone * 1000;
 
