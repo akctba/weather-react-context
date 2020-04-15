@@ -26,7 +26,7 @@ class Searchbar extends Component {
                 dispatch({ type: "CLEAR_WEATHER", payload: null });
 
                 //fetch(`${api.base}weather?q=${this.state.location}&lang=${this.context.language}&units=metric&APPID=${api.key}`)
-                fetch(`${process.env.base}weather?q=${this.state.location}&lang=${this.context.language}&units=metric&APPID=${process.env.key}`)
+                fetch(`${process.env.REACT_APP_BASE}weather?q=${this.state.location}&lang=${this.context.language}&units=metric&APPID=${process.env.REACT_APP_KEY}`)
                 .then(response => {
                     if (!response.ok) {
                         console.warn("Response not ok");
