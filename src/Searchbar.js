@@ -3,11 +3,6 @@ import './index.css';
 
 import { WeatherConsumer } from "./weatherContext";
 
-// const api = {
-//     key: "720b1a41660c87e3beb3873ed2143b01",
-//     base: "https://api.openweathermap.org/data/2.5/"
-// }
-
 class Searchbar extends Component {
 
     state = {
