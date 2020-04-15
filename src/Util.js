@@ -10,3 +10,24 @@ export function dateBuilder (d) {
 
     return `${day}, ${date} ${month} ${year}`;
 }
+
+// -----------------
+// FORMATS THE TIME
+// -----------------
+
+export function parseTime(timestamp, timezone) {
+    
+    var adjTimestamp = timestamp * 1000 + timezone * 1000;
+
+    var date = new Date(adjTimestamp);
+    // Hours part from the timestamp
+    var hours = date.getUTCHours();
+    // Minutes part from the timestamp
+    var minutes = "0" + date.getUTCMinutes();
+    // Seconds part from the timestamp
+    // var seconds = "0" + date.getUTCSeconds();
+
+    // Will display time in HH:MM format
+    var formattedTime = hours + ':' + minutes.substr(-2);
+    return formattedTime;
+}
