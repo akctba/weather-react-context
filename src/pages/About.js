@@ -5,10 +5,10 @@ export default function About() {
         <>
             <div className="about">
                 <h1> 
-                    React Project - By Alex Kayser
+                    Weather Context Project - By Alex Kayser
                 </h1>
                 <p>
-                    React project using Context model. Data provided by OpenWeatherMap API.
+                    The aim of this React project is to show Context API in use. The data is provided by OpenWeatherMap API.
                 </p>
                 <p>Node modules: </p>
                 <ul>
