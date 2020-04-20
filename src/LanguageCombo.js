@@ -5,20 +5,7 @@ import { WeatherConsumer } from './weatherContext';
 
 class LanguageCombo extends Component {
 
-    // state = {
-    //     language: ""
-    // }
-
-    // changeLang = (dispatch, e) => {
-    //     const {language} = this.state;
-
-    //     dispatch({ type: "CHANGE_LANGUAGE", payload: language });
-    // }
-
     onChange = (dispatch, e) => {
-        // this.setState({
-        //    [e.target.name]: e.target.value
-        // });
         dispatch({ type: "CHANGE_LANGUAGE", payload: e.target.value });
     }
 

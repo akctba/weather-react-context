@@ -11,32 +11,11 @@ import Conditions from './Conditions';
 class Weather extends React.Component {
     state = {}
 
-    // componentDidMount() {
-    //     return(
-    //         <WeatherConsumer>
-    //         {value => {
-    //             const { dispatch } = value;
-    //             fetch(`https://api.openweathermap.org/data/2.5/weather?q=vancouver&lang=${this.context.language}&units=metric&APPID=720b1a41660c87e3beb3873ed2143b01`)
-    //             .then(res => res.json())
-    //             .then(result => {
-    //                 //console.warn(result);
-    //                 //return result;
-    //                 dispatch({ type: "SET_WEATHER", payload: result });
-    //             }).catch(error => {
-    //                 console.error(error);
-    //             })
-    //         }}
-    //         </WeatherConsumer>
-    //     );
-    // }
-
     render() {
         return(
             <WeatherConsumer>
                 {data => {
                     const { weather } = data;
-                    // console.log("dataaaa");
-                    // console.log(data);
                     return (
                         <div className="app">
                             <main>
