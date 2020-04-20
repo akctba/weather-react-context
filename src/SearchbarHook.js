@@ -1,24 +1,31 @@
-import React, { Component } from 'react';
+//import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './index.css';
 
 import { WeatherConsumer } from "./weatherContext";
 
-class Searchbar extends Component {
+// April 20th - changing from class to Hooks
+//class Searchbar extends Component {
+const Searchbar = props => {
 
-    state = {
-        location: ""
-    }
+    // this is a Hook...
+    const [location, setLocation] = useState('');
 
-    static contextType = WeatherConsumer; //This code is generating a warning: Searchbar defines an invalid contextType. contextType should point to the Context object returned by React.createContext(). Did you accidentally pass the Context.Consumer instead?
+    // ... that substitute the state
+    // state = {
+    //     location: ""
+    // }
 
-    search = (dispatch, e) => {
+    // const contextType = WeatherConsumer; //This code is generating a warning: Searchbar defines an invalid contextType. contextType should point to the Context object returned by React.createContext(). Did you accidentally pass the Context.Consumer instead?
+
+    const search = (dispatch, language, e) => {
         
-        if(this.state.location) {
+        if(location) {
             if (e.key === "Enter") {
 
                 dispatch({ type: "CLEAR_WEATHER", payload: null });
 
-                fetch(`${process.env.REACT_APP_BASE}weather?q=${this.state.location}&lang=${this.context.language}&units=metric&APPID=${process.env.REACT_APP_KEY}`)
+                fetch(`${process.env.REACT_APP_BASE}weather?q=${location}&lang=${language}&units=metric&APPID=${process.env.REACT_APP_KEY}`)
                 .then(response => {
                     if (!response.ok) {
                         dispatch({type: "SHOW_MESSAGE", payload: "Data doesn't found."});
@@ -38,13 +45,15 @@ class Searchbar extends Component {
         }
     }
 
-    onChange = e =>
-        this.setState({
-        [e.target.name]: e.target.value
-    });
+    const onChange = e => {
+        // this.setState({
+        //     [e.target.name]: e.target.value
+        // });
+        setLocation(e.target.value);
+    }
 
-    findByLocation = (dispatch) => {
-        this.setState({location: ''});
+    const findByLocation = (dispatch, language) => {
+        setLocation('');
         dispatch({ type: "CLEAR_WEATHER", payload: null });
 
         if (navigator.geolocation) {
@@ -52,12 +61,11 @@ class Searchbar extends Component {
                 let lat = position.coords.latitude;
                 let lon = position.coords.longitude;
                 
-                let endpoint = `${process.env.REACT_APP_BASE}weather?lat=${lat}&lon=${lon}&lang=${this.context.language}&units=metric&APPID=${process.env.REACT_APP_KEY}`;
+                let endpoint = `${process.env.REACT_APP_BASE}weather?lat=${lat}&lon=${lon}&lang=${language}&units=metric&APPID=${process.env.REACT_APP_KEY}`;
         
                 fetch(endpoint)
                     .then(response => {
                         if (!response.ok) {
-                            console.warn("Response not ok");
                             dispatch({type: "SHOW_MESSAGE", payload: "Data doesn't found."});
                         }
                         return response.json();
@@ -70,7 +78,6 @@ class Searchbar extends Component {
                         }
 
                     }).catch(error => {
-                      console.warn("Catch errorrrrrrr Response not ok");
                       dispatch({type: "SHOW_MESSAGE", payload: error});
                     });
         
@@ -81,11 +88,11 @@ class Searchbar extends Component {
           }
     }
 
-    render() { 
+//    render() {  remove the render fucntion
         return(
             <WeatherConsumer>
                 {value => {
-                    const { dispatch, message } = value;
+                    const { dispatch, message, language } = value;
                     return (
                         <>
                         <div className = "search-box" >
@@ -93,11 +100,11 @@ class Searchbar extends Component {
                             name="location" id="location"
                             className = "search-bar"
                             placeholder = "Search..."
-                            onChange={this.onChange}
-                            value={this.state.location}
-                            onKeyPress={this.search.bind(this, dispatch)}
+                            onChange={onChange}
+                            value={location}
+                            onKeyPress={search.bind(this, dispatch, language)}
                             />
-                            <button type="button" className="gps" onClick={this.findByLocation.bind(this, dispatch)}>&#8982;</button>
+                            <button type="button" className="gps" onClick={findByLocation.bind(this, dispatch, language)}>&#8982;</button>
                         </div>
                         <div className={(message?"show-":"no-")+"message"}>
                             Message: {message}
@@ -107,7 +114,7 @@ class Searchbar extends Component {
                 }}
             </WeatherConsumer>
         );
-    }
+//    } //remove render function
 }
 
 export default Searchbar;

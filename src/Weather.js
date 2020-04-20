@@ -5,7 +5,8 @@ import {dateBuilder, parseTime} from "./Util";
 
 //import LanguageCombo from "./LanguageCombo";
 import LanguageFunction from './LanguageFunction';
-import Searchbar from './Searchbar';
+//import Searchbar from './Searchbar';
+import Searchbar from './SearchbarHook';
 import Conditions from './Conditions';
 
 class Weather extends React.Component {
