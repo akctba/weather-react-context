@@ -1,11 +1,6 @@
 import React, {Component} from "react";
 const { Provider, Consumer } = React.createContext();
 
-// const api = {
-//     key: "720b1a41660c87e3beb3873ed2143b01",
-//     base: "https://api.openweathermap.org/data/2.5/"
-// }
-
 const reducer = (state, action) => {
     switch (action.type) {
       case "CHANGE_LANGUAGE":
@@ -31,58 +26,10 @@ const reducer = (state, action) => {
           weather: {},
           message: action.payload
         };
-        // case "FIND_BY_NAME":
-        // return {
-        //   ...state,
-        //   location: action.payload,
-        //   weather: loadWeather(action.payload, state.language) //nao funciona
-        // };
-        // case "FIND_BY_LOCATION":
-        // return {
-        //   ...state,
-        //   location: '',
-        //   weather: loadWeatherLocation(state.language) //nao funciona
-        // };
       default:
         return state;
     }
   };
-
-// const loadWeather = (place, lang) => {
-//     fetch(`${api.base}weather?q=${place}&lang=${lang}&units=metric&APPID=${api.key}`)
-//     .then(res => res.json())
-//     .then(result => {
-//       console.warn(result);
-//       return result;
-//     }).catch(error => {
-//       console.error(error);
-//     })
-// }
-
-// const loadWeatherLocation = () => {
-//   if (navigator.geolocation) {
-//     navigator.geolocation.getCurrentPosition(position => {
-//         let lat = position.coords.latitude;
-//         let lon = position.coords.longitude;
-
-//         //let endpoint = `${api.base}weather?lat=${lat}&lon=${lon}&lang=${this.state.language}&units=metric&APPID=${api.key}`;
-//         let endpoint = `${api.base}weather?lat=${lat}&lon=${lon}&lang=en&units=metric&APPID=${api.key}`;
-
-//         fetch(endpoint)
-//             .then(res => res.json())
-//             .then(result => {
-//                 console.log(result);
-//                 return result;
-//             }).catch(error => {
-//               //TODO: show error message
-//             });
-
-//     }, error => {console.error(error)},
-//     {enableHighAccuracy: true, timeout: 5000, maximumAge: 5000});
-//   } else {
-//     console.log("Geolocation is not supported by this browser.");
-//   }
-// }
 
 class WeatherProvider extends Component {
     state = {
@@ -98,8 +45,6 @@ class WeatherProvider extends Component {
       fetch(`${process.env.REACT_APP_BASE}weather?q=vancouver&lang=${this.state.language}&units=metric&APPID=${process.env.REACT_APP_KEY}`)
       .then(res => res.json())
       .then(result => {
-        //console.warn(result);
-        //return result;
         this.setState({weather: result});
       }).catch(error => {
         console.error(error);
