@@ -31,7 +31,10 @@ const reducer = (state, action) => {
     }
   };
 
+  
+
 class WeatherProvider extends Component {
+
     state = {
         language: "en",
         location: "",
@@ -39,16 +42,28 @@ class WeatherProvider extends Component {
         dispatch: action => {
             this.setState(state => reducer(state, action));
         }
+        , loadWeather: this.loadWeather
     }
 
-    componentDidMount() {
-      fetch(`${process.env.REACT_APP_BASE}weather?q=vancouver&lang=${this.state.language}&units=metric&APPID=${process.env.REACT_APP_KEY}`)
+    loadWeather = (city) => {
+      fetch(`${process.env.REACT_APP_BASE}weather?q=${city}&lang=${this.state.language}&units=metric&APPID=${process.env.REACT_APP_KEY}`)
       .then(res => res.json())
       .then(result => {
         this.setState({weather: result});
       }).catch(error => {
         console.error(error);
       })
+    }
+
+    componentDidMount() {
+      this.loadWeather('vancouver');
+      // fetch(`${process.env.REACT_APP_BASE}weather?q=vancouver&lang=${this.state.language}&units=metric&APPID=${process.env.REACT_APP_KEY}`)
+      // .then(res => res.json())
+      // .then(result => {
+      //   this.setState({weather: result});
+      // }).catch(error => {
+      //   console.error(error);
+      // })
     }
 
     render() {
