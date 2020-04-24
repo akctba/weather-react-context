@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import './index.css';
 
+/*********************
+ * 
+ * This file it's not in use, it's here just for historic pourpose.
+ * See SearchbarHook.js to Hooks version.
+ * 
+ *********************/
+
 import { WeatherConsumer } from "./weatherContext";
 
 class Searchbar extends Component {
